@@ -12,7 +12,7 @@ import javax.validation.constraints.Min;
 public class ConcurrencyConfigurationProperties {
 
     @Min(value = 4, message = "The shared thread pool size can't be lower than 4.")
-    private int asyncThreadPoolSize;
+    private int asyncThreadPoolSize = 8;
 
     public int getAsyncThreadPoolSize() {
         return asyncThreadPoolSize;
