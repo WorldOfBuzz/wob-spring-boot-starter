@@ -41,7 +41,7 @@ public class BarcodeValidatorTest {
 	}
 	
 	@Test
-	public void valid_ean13() throws NoSuchFieldException {
+	public void shouldValidateWithoutViolationWhenBarcodeIsValidEanOrEanFromUpc12() throws NoSuchFieldException {
 		BarcodeValidatorTester tester = new BarcodeValidatorTester();
 		tester.setBarcode(validEan);
 		
@@ -54,7 +54,7 @@ public class BarcodeValidatorTest {
 	}
 	
 	@Test
-	public void valid_upc12() throws NoSuchFieldException {
+	public void shouldValidateWithoutViolationWhenBarcodeIsValidUpc12() throws NoSuchFieldException {
 		BarcodeValidatorTester tester = new BarcodeValidatorTester();
 		tester.setBarcode(validUpc);
 		
@@ -63,7 +63,7 @@ public class BarcodeValidatorTest {
 	}
 	
 	@Test
-	public void valid_isbn10() throws NoSuchFieldException {
+	public void shouldValidateWithoutViolationWhenBarcodeIsValidIsbn10() throws NoSuchFieldException {
 		BarcodeValidatorTester tester = new BarcodeValidatorTester();
 		
 		tester.setBarcode(validIsbn);
@@ -72,7 +72,7 @@ public class BarcodeValidatorTest {
 	}
 	
 	@Test
-	public void invalid_ean13() throws NoSuchFieldException {
+	public void shouldReturnOneValidationViolationWhenBarcodeIsInvalidEan() throws NoSuchFieldException {
 		BarcodeValidatorTester tester = new BarcodeValidatorTester();
 		tester.setBarcode("9781338099132");
 		
@@ -81,7 +81,7 @@ public class BarcodeValidatorTest {
 	}
 	
 	@Test
-	public void invalid_upc12() throws NoSuchFieldException {
+	public void shouldReturnOneValidationViolationWhenBarcodeIsInvalidUpc12() throws NoSuchFieldException {
 		BarcodeValidatorTester tester = new BarcodeValidatorTester();
 		tester.setBarcode("025545409087");
 		
@@ -90,7 +90,7 @@ public class BarcodeValidatorTest {
 	}
 	
 	@Test
-	public void invalid_isbn10() throws NoSuchFieldException {
+	public void shouldReturnOneValidationViolationWhenBarcodeIsInvalidIsbn10() throws NoSuchFieldException {
 		BarcodeValidatorTester tester = new BarcodeValidatorTester();
 		tester.setBarcode("1338099131");
 		
@@ -99,7 +99,7 @@ public class BarcodeValidatorTest {
 	}
 	
 	@Test
-	public void invalid_empty() throws NoSuchFieldException {
+	public void shouldReturnValidationAndEmptyErrorWhenBarcodeIsEmpty() throws NoSuchFieldException {
 		BarcodeValidatorTester tester = new BarcodeValidatorTester();
 		tester.setBarcode("");
 		
@@ -108,7 +108,7 @@ public class BarcodeValidatorTest {
 	}
 	
 	@Test
-	public void invalid_null() throws NoSuchFieldException {
+	public void shouldReturnValidationAndNullErrorWhenBarcodeIsNull() throws NoSuchFieldException {
 		BarcodeValidatorTester tester = new BarcodeValidatorTester();
 		
 		Set<ConstraintViolation<BarcodeValidatorTester>> violations = validator.validate(tester, Default.class);
@@ -116,7 +116,7 @@ public class BarcodeValidatorTest {
 	}
 	
 	@Test
-	public void invalid_input() throws NoSuchFieldException {
+	public void shouldReturnValidationErrorWhenBarcodeIsNotValid() throws NoSuchFieldException {
 		BarcodeValidatorTester tester = new BarcodeValidatorTester();
 		tester.setBarcode("test");
 		

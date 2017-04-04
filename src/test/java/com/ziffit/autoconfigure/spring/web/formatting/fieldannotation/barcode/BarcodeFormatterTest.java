@@ -45,31 +45,31 @@ public class BarcodeFormatterTest {
 	}
 	
 	@Test
-	public void from_isbn() throws Exception {
+	public void shouldReturnEanWhenBarcodeIsIsbn() throws Exception {
 		mockMvc.perform(get("/format?barcode=" + validIsbn))
 				.andExpect(content().string(validEan));
 	}
 	
 	@Test
-	public void from_upc() throws Exception {
+	public void shouldReturn0PlusUpcWhenBarcodeIsUpc() throws Exception {
 		mockMvc.perform(get("/format?barcode=" + validUpc))
 				.andExpect(content().string("0" + validUpc));
 	}
 	
 	@Test
-	public void from_isbn_9() throws Exception {
+	public void shouldReturnValidEanWhenBarcodeIs9CharactersLong() throws Exception {
 		mockMvc.perform(get("/format?barcode=338099132"))
 				.andExpect(content().string("9780338099136"));
 	}
 	
 	@Test
-	public void from_ean() throws Exception {
+	public void shouldReturnInputWhenBarcodeIsValidEan() throws Exception {
 		mockMvc.perform(get("/format?barcode=" + validEan))
 				.andExpect(content().string(validEan));
 	}
 	
 	@Test
-	public void from_random() throws Exception {
+	public void shouldReturnInputWhenBarcodeIsNonValidRandomString() throws Exception {
 		List<String> testStrings = Arrays.asList("CGet3oD0G", "U9z3ZQR8gE", "w5MnA1l4ObYZ", "fbPZiawSvnKhF", "pLVnUzIQmcFUvKCs");
 		
 		for (String testString : testStrings) {
