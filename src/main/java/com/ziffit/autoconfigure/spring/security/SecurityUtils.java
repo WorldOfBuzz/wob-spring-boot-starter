@@ -1,8 +1,14 @@
 package com.ziffit.autoconfigure.spring.security;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SecurityUtils {
 
@@ -23,5 +29,17 @@ public class SecurityUtils {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Converts a list of <code>String</code> roles into {@link GrantedAuthority} objects.
+     *
+     * @param roles A collection of security roles, in the format of <code>ROLE_ANONYMOUS</code>.
+     * @return A collection of {@link SimpleGrantedAuthority} objects.
+     */
+    public static Collection<? extends GrantedAuthority> convertToGrantedAuthorities(List<String> roles) {
+        return roles.stream()
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toList());
     }
 }
