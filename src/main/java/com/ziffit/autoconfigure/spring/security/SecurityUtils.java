@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,8 +39,12 @@ public class SecurityUtils {
      * @return A collection of {@link SimpleGrantedAuthority} objects.
      */
     public static Collection<? extends GrantedAuthority> convertToGrantedAuthorities(List<String> roles) {
-        return roles.stream()
-            .map(SimpleGrantedAuthority::new)
-            .collect(Collectors.toList());
+        if (roles == null) {
+            return Collections.emptyList();
+        } else {
+            return roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+        }
     }
 }
