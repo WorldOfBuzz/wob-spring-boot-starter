@@ -5,13 +5,8 @@ import java.util.List;
 
 public class CommonDTO {
 
-    private List<String> eventMessages;
-    private List<String> errorMessages;
-
-    public CommonDTO() {
-        eventMessages = new ArrayList<>();
-        errorMessages = new ArrayList<>();
-    }
+    private List<String> eventMessages = new ArrayList<>();
+    private List<String> errorMessages = new ArrayList<>();
 
     public void addEventMessage(String message) {
         eventMessages.add(message);
