@@ -17,9 +17,9 @@ public class AsyncConfiguration implements AsyncConfigurer {
 
     private static final Logger logger = LogManager.getLogger();
 
-    private ConcurrencyConfigurationProperties concurrencyProperties;
+    private ConcurrencyProperties concurrencyProperties;
 
-    public AsyncConfiguration(ConcurrencyConfigurationProperties concurrencyProperties) {
+    public AsyncConfiguration(ConcurrencyProperties concurrencyProperties) {
         this.concurrencyProperties = concurrencyProperties;
     }
 

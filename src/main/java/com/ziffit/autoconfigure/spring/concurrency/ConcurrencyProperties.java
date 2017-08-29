@@ -9,7 +9,7 @@ import javax.validation.constraints.Min;
 @Component
 @ConfigurationProperties("world-of-buzz.concurrency")
 @Validated
-public class ConcurrencyConfigurationProperties {
+public class ConcurrencyProperties {
 
     @Min(value = 4, message = "The shared thread pool size can't be lower than 4.")
     private int asyncThreadPoolSize = 8;
