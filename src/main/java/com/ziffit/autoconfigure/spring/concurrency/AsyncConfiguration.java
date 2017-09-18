@@ -1,5 +1,6 @@
 package com.ziffit.autoconfigure.spring.concurrency;
 
+import com.google.common.base.Throwables;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
@@ -32,7 +33,7 @@ public class AsyncConfiguration implements AsyncConfigurer {
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
         return (e, method, parameters) -> {
           logger.error("==============Uncaught Async Exception==============");
-          logger.error("Error message: {}", e.getMessage());
+          logger.error("Error message: {}", Throwables.getStackTraceAsString(e));
           logger.error("Method name: [{}]", method.getName());
           Arrays.stream(parameters).forEach(parameter -> logger.error("Calling parameter: [{}]", parameter));
         };
