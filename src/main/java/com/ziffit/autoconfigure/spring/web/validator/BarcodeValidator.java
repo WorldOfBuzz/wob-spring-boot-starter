@@ -40,7 +40,7 @@ public class BarcodeValidator implements ConstraintValidator<Barcode, String> {
             return false;
         } else {
             constraintValidatorContext.disableDefaultConstraintViolation();
-            constraintValidatorContext.buildConstraintViolationWithTemplate("value contains invalid characters")
+            constraintValidatorContext.buildConstraintViolationWithTemplate("The barcode contains invalid characters.")
                 .addConstraintViolation();
 
             return false;
