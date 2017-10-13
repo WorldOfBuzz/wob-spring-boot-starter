@@ -1,16 +1,20 @@
 package com.ziffit.autoconfigure.spring.concurrency;
 
 import com.google.common.base.Throwables;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolExecutorFactoryBean;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 
 @Configuration
@@ -27,7 +31,12 @@ public class AsyncConfiguration implements AsyncConfigurer {
 
     @Override
     public Executor getAsyncExecutor() {
-        return new ForkJoinPool(concurrencyProperties.getAsyncThreadPoolSize());
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(concurrencyProperties.getAsyncThreadPoolSize() / 2);
+        executor.setMaxPoolSize(concurrencyProperties.getAsyncThreadPoolSize());
+        executor.setThreadNamePrefix("Spring-Async-Executor-");
+        executor.initialize();
+        return executor;
     }
 
     @Override
