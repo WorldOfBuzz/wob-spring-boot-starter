@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ForkJoinPool;
@@ -31,11 +32,19 @@ public class AsyncConfiguration implements AsyncConfigurer {
 
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
-        return (e, method, parameters) -> {
-          logger.error("==============Uncaught Async Exception==============");
-          logger.error("Error message: {}", Throwables.getStackTraceAsString(e));
-          logger.error("Method name: [{}]", method.getName());
-          Arrays.stream(parameters).forEach(parameter -> logger.error("Calling parameter: [{}]", parameter));
-        };
+        return (e, method, parameters) -> logger.error(buildExceptionMessage(e, method, parameters));
+    }
+
+    private String buildExceptionMessage(Throwable e, Method method, Object... parameters) {
+        StringBuilder exceptionMessage = new StringBuilder();
+        exceptionMessage.append("==============Uncaught Async Exception==============");
+        exceptionMessage.append(System.lineSeparator());
+        exceptionMessage.append("Error message: [").append(Throwables.getStackTraceAsString(e)).append("]");
+        exceptionMessage.append(System.lineSeparator());
+        exceptionMessage.append("Method name: [").append(method.getName()).append("]");
+        exceptionMessage.append(System.lineSeparator());
+        Arrays.stream(parameters).forEach(parameter -> exceptionMessage
+            .append("Calling parameter: [").append(parameter).append("]").append(System.lineSeparator()));
+        return exceptionMessage.toString();
     }
 }
