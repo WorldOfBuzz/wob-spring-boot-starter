@@ -142,6 +142,11 @@
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
         </dependency>
+        <!--For RestTemplate, to help with avoiding TCP CLOSE_WAIT problems-->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
 
         <!--***************************************************************************-->
         <!--*                                                                         *-->

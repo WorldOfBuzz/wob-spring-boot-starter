@@ -1,67 +1,63 @@
 package com.ziffit.autoconfigure.spring.web;
 
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import com.google.common.collect.Lists;
+import org.apache.http.Header;
+import org.apache.http.HttpHost;
+import org.apache.http.client.HttpClient;
+import org.apache.http.conn.HttpClientConnectionManager;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
+import org.apache.http.conn.ssl.TrustStrategy;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.DefaultSchemePortResolver;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.ssl.SSLContextBuilder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 
-import javax.net.ssl.*;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.Socket;
+import javax.net.ssl.SSLContext;
 import java.security.KeyManagementException;
+import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.Collection;
 
-public class UnsafeHttpRequestFactory extends SimpleClientHttpRequestFactory {
+public class UnsafeHttpRequestFactory extends HttpComponentsClientHttpRequestFactory {
 
-    @Override
-    protected void prepareConnection(HttpURLConnection connection, String httpMethod) throws IOException {
+    private static final Logger logger = LogManager.getLogger();
+
+    private HttpClient unsafeHttpClient;
+
+    {
         try {
-            if (connection instanceof HttpsURLConnection) {
-                ((HttpsURLConnection) connection).setHostnameVerifier((x, y) -> true);
-                ((HttpsURLConnection) connection).setSSLSocketFactory(buildUnsafeSSLContext().getSocketFactory());
-                connection.setAllowUserInteraction(true);
-            }
-            super.prepareConnection(connection, httpMethod);
-        } catch (NoSuchAlgorithmException | KeyManagementException e) {
-            throw new IOException(e.getMessage());
+            SSLContext sslContext = SSLContextBuilder
+                .create()
+                .loadTrustMaterial(null, (TrustStrategy) (chain, authType) -> true)
+                .build();
+
+            SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(sslContext, new NoopHostnameVerifier());
+
+            Collection<Header> headers = Lists.newArrayList(new BasicHeader("Connection", "close"));
+
+            this.unsafeHttpClient = HttpClientBuilder
+                .create()
+                .setDefaultHeaders(headers)
+                .setSSLSocketFactory(socketFactory)
+                .setMaxConnPerRoute(5000)
+                .setMaxConnTotal(7000)
+                .build();
+        } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException e) {
+            logger.error(e.getMessage());
         }
     }
 
-    private SSLContext buildUnsafeSSLContext() throws NoSuchAlgorithmException, KeyManagementException {
-        SSLContext unsafeSSLContext = SSLContext.getInstance("TLS");
-        X509ExtendedTrustManager unsafeTrustManager = new X509ExtendedTrustManager() {
-
-            @Override
-            public void checkClientTrusted(X509Certificate[] x509Certificates, String s, Socket socket) throws CertificateException {
-            }
-
-            @Override
-            public void checkServerTrusted(X509Certificate[] x509Certificates, String s, Socket socket) throws CertificateException {
-            }
-
-            @Override
-            public void checkClientTrusted(X509Certificate[] x509Certificates, String s, SSLEngine sslEngine) throws CertificateException {
-            }
-
-            @Override
-            public void checkServerTrusted(X509Certificate[] x509Certificates, String s, SSLEngine sslEngine) throws CertificateException {
-            }
-
-            @Override
-            public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
-            }
-
-            @Override
-            public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
-            }
-
-            @Override
-            public X509Certificate[] getAcceptedIssuers() {
-                return null;
-            }
-        };
-        unsafeSSLContext.init(null, new TrustManager[]{unsafeTrustManager}, null);
-        SSLContext.setDefault(unsafeSSLContext);
-        return unsafeSSLContext;
+    public UnsafeHttpRequestFactory() {
+        super();
+        super.setHttpClient(unsafeHttpClient);
     }
 }
