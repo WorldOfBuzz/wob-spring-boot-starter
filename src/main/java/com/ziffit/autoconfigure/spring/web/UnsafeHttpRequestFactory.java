@@ -50,6 +50,7 @@ public class UnsafeHttpRequestFactory extends HttpComponentsClientHttpRequestFac
                 .setSSLSocketFactory(socketFactory)
                 .setMaxConnPerRoute(5000)
                 .setMaxConnTotal(7000)
+                .disableCookieManagement()
                 .build();
         } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException e) {
             logger.error(e.getMessage());
