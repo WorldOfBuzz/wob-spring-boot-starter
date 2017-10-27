@@ -5,8 +5,17 @@ import java.util.List;
 
 public class CommonDTO {
 
+    private String exceptionMessage;
     private List<String> eventMessages = new ArrayList<>();
     private List<String> errorMessages = new ArrayList<>();
+
+    public String getExceptionMessage() {
+        return exceptionMessage;
+    }
+
+    public void setExceptionMessage(String exceptionMessage) {
+        this.exceptionMessage = exceptionMessage;
+    }
 
     public void addEventMessage(String message) {
         eventMessages.add(message);

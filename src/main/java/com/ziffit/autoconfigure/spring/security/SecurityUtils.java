@@ -24,12 +24,11 @@ public class SecurityUtils {
     public static boolean isCurrentUserAuthenticated() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();
-        if (authentication != null) {
-            return authentication.getAuthorities().stream()
-                .noneMatch(grantedAuthority -> SecurityConstants.ROLE_ANONYMOUS.equals(grantedAuthority.getAuthority()));
-        } else {
-            return false;
-        }
+        return authentication != null &&
+            authentication
+                .getAuthorities()
+                .stream()
+                .anyMatch(grantedAuthority -> SecurityConstants.ROLE_USER.equals(grantedAuthority.getAuthority()));
     }
 
     /**
