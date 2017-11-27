@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
 @NotEmpty
 public @interface Barcode {
 
-    String message() default "Invalid barcode.";
+    String message() default "Sorry, the barcode you've entered hasn't been recognised. Please try again.";
 
     Class<?>[] groups() default {};
 
