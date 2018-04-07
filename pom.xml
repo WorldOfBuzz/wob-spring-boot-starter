@@ -40,7 +40,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <guava.version>23.0</guava.version>
+        <guava.version>24.0-jre</guava.version>
     </properties>
 
     <dependencies>
@@ -86,17 +86,6 @@
         <!--* CACHE                                                                   *-->
         <!--*                                                                         *-->
         <!--***************************************************************************-->
-        <!--Infinispan cache-->
-        <!--<dependency>-->
-        <!--<groupId>org.infinispan</groupId>-->
-        <!--<artifactId>infinispan-spring4-embedded</artifactId>-->
-        <!--</dependency>-->
-        <!--Hibernate integration for 2nd level cache-->
-        <!--<dependency>-->
-        <!--<groupId>org.hibernate</groupId>-->
-        <!--<artifactId>hibernate-infinispan</artifactId>-->
-        <!--<version>${hibernate.version}</version>-->
-        <!--</dependency>-->
 
 
         <!--***************************************************************************-->
