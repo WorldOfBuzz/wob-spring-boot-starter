@@ -13,16 +13,19 @@ public class CommonResponse {
         return exceptionMessage;
     }
 
-    public void setExceptionMessage(String exceptionMessage) {
+    public CommonResponse setExceptionMessage(String exceptionMessage) {
         this.exceptionMessage = exceptionMessage;
+        return this;
     }
 
-    public void addEventMessage(String message) {
+    public CommonResponse addEventMessage(String message) {
         eventMessages.add(message);
+        return this;
     }
 
-    public void addErrorMessage(String errorMessage) {
+    public CommonResponse addErrorMessage(String errorMessage) {
         errorMessages.add(errorMessage);
+        return this;
     }
 
     public List<String> getEventMessages() {
