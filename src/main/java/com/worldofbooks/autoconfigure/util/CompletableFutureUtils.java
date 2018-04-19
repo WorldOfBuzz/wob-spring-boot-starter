@@ -8,7 +8,7 @@ public class CompletableFutureUtils {
 
     public static <T> CompletableFuture<List<T>> waitForAllFutures(List<CompletableFuture<T>> futures) {
         CompletableFuture<Void> completedFutureResult =
-            CompletableFuture.allOf(futures.toArray(new CompletableFuture[futures.size()]));
+            CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
         return completedFutureResult
             .thenApply(ignored -> futures
                 .stream()
