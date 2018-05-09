@@ -11,7 +11,7 @@ public class HttpServletRequestUtils {
 
     private static final String SPRING_EXCEPTION_ATTRIBUTE = DefaultErrorAttributes.class.getName() + ".ERROR";
 
-    public String extractUriFromServletRequest(HttpServletRequest request) {
+    public static String extractUriFromServletRequest(HttpServletRequest request) {
         String uri = (String) request.getAttribute(RequestDispatcher.ERROR_REQUEST_URI);
 
         if (Strings.isNullOrEmpty(uri)) {
@@ -21,7 +21,7 @@ public class HttpServletRequestUtils {
         return uri;
     }
 
-    public Throwable extractExceptionFromServletRequest(HttpServletRequest request) {
+    public static Throwable extractExceptionFromServletRequest(HttpServletRequest request) {
         Throwable e = (Throwable) request.getAttribute(SPRING_EXCEPTION_ATTRIBUTE);
 
         if (e == null) {

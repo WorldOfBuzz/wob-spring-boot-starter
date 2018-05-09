@@ -1,5 +1,6 @@
 ## Current
 
+* Make `HttpServletRequestUtils` utility methods static.
 
 ## 2.0.2.1
 
