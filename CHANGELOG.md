@@ -1,5 +1,8 @@
 ## Current
 
+* Add badges to README.
+* Make `HttpServletRequestUtils`'s constructor private.
+
 ## 2.0.2.0
 
 * Upgrade to Spring Boot `2.0.2.RELEASE`.
