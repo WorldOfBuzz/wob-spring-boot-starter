@@ -1,5 +1,9 @@
 ## Current
 
+## 2.0.2.0
+
+* Upgrade to Spring Boot `2.0.2.RELEASE`.
+
 ## 2.0.1.2
 
 * Make `HttpServletRequestUtils` utility methods static.
