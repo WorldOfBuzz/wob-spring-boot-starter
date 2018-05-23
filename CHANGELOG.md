@@ -2,6 +2,7 @@
 
 * Add badges to README.
 * Make `HttpServletRequestUtils`'s constructor private.
+* Add Sentry's Log4j2 appender.
 
 ## 2.0.2.0
 
