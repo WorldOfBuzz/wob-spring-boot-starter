@@ -1,8 +1,11 @@
 ## Current
 
+## 2.0.3.0
+
 * Add badges to README.
 * Make `HttpServletRequestUtils`'s constructor private.
-* Add Sentry's Log4j2 appender.
+* Add Sentry's Log4j2 appender dependency.
+* Upgrade to Spring Boot `2.0.3.RELEASE`.
 
 ## 2.0.2.0
 
