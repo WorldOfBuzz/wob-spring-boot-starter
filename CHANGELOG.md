@@ -1,5 +1,7 @@
 ## Current
 
+## 2.0.3.1
+
 * Make the `Executor` in `AsyncConfiguration` a bean.
 
 
