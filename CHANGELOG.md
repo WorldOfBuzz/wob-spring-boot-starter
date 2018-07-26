@@ -1,5 +1,11 @@
 ## Current
 
+* Make the `Executor` in `AsyncConfiguration` a bean.
+
+
+* Upgrade Sentry Log4j2 appender to `1.7.5`.
+* Upgrade Guava to `25.1-jre`.
+
 ## 2.0.3.0
 
 * Add badges to README.

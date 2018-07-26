@@ -48,8 +48,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <guava.version>25.0-jre</guava.version>
-        <sentry-log4j2.version>1.7.3</sentry-log4j2.version>
+        <guava.version>25.1-jre</guava.version>
+        <sentry-log4j2.version>1.7.5</sentry-log4j2.version>
 
         <nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
         <maven-gpg-plugin.version>1.5</maven-gpg-plugin.version>
