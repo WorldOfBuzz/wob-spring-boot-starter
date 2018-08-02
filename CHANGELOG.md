@@ -1,5 +1,9 @@
 ## Current
 
+## 2.0.4.0
+
+* Upgrade to Spring Boot `2.0.4.RELEASE`.
+
 ## 2.0.3.1
 
 * Make the `Executor` in `AsyncConfiguration` a bean.
