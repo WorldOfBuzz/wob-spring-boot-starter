@@ -1,5 +1,7 @@
 ## Current
 
+## 2.0.4.1
+
 * Extend the `CommonResponse` class.
 
 ## 2.0.4.0
