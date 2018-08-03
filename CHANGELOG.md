@@ -1,5 +1,7 @@
 ## Current
 
+* Extend the `CommonResponse` class.
+
 ## 2.0.4.0
 
 * Upgrade to Spring Boot `2.0.4.RELEASE`.
