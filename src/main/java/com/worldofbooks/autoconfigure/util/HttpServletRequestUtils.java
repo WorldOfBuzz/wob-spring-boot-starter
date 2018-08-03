@@ -2,6 +2,7 @@ package com.worldofbooks.autoconfigure.util;
 
 import com.google.common.base.Strings;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
+import org.springframework.web.servlet.HandlerMapping;
 
 import javax.servlet.AsyncContext;
 import javax.servlet.RequestDispatcher;
@@ -19,6 +20,10 @@ public class HttpServletRequestUtils {
 
         if (Strings.isNullOrEmpty(uri)) {
             uri = (String) request.getAttribute(AsyncContext.ASYNC_REQUEST_URI);
+        }
+
+        if (Strings.isNullOrEmpty(uri)) {
+            uri = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
         }
 
         return uri;
