@@ -1,5 +1,7 @@
 ## Current
 
+## 2.0.4.2
+
 * Add a third way to extract the request URI in `HttpServletRequestUtils.extractUriFromServletRequest`.
 
 ## 2.0.4.1
